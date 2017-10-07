@@ -12,8 +12,13 @@ export class MapContainer extends React.Component {
         },
         service: null,
         google: null,
-        places: [],
-        selectedPlace: null,
+        pins: [],
+        selectedPlace: {
+          title:null,
+          place:{
+            formatted_address: null
+          }
+        },
         activeMarker: null,
         showingInfoWindow: false
       };
@@ -36,28 +41,31 @@ export class MapContainer extends React.Component {
   // }
 
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.searchTerm !== this.props.searchTerm) {
-  //     this.findPlaces();
-  //   }
-  // }
-  //
-  // findPlaces(){
-  //   let google = this.props.google;
-  //   let request = {
-  //     location: this.state.currentLocation,
-  //     radius: '500',
-  //     query: this.props.searchTerm
-  //   };
-  //   //
-  //   let response = (results, status) => {
-  //     if (status === google.maps.places.PlacesServiceStatus.OK) {
-  //       this.setState({places: results});
-  //     }
-  //   };
-  //   this.setState({places: []},
-  //     this.state.service.textSearch(request, response));
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.focus !== this.props.focus) {
+      // this.state.pins[this.props.focus].props.onClick();
+      //   selectedPlace: this.state.pins[this.props.focus].props,
+      //   activeMarker: this.state.pins[this.props.focus].props.type,
+      //   showingInfoWindow: true
+      // });
+    }
+
+    if(prevProps.place_state !== this.props.place_state){
+      let pins = this.props.place_state.places.map((place, i) => (
+        <Marker
+          key={i}
+          title={place.name}
+          icon={null}
+          position={place.geometry.location}
+          label={place.name[0]}
+          onClick={(props, marker, e) => this.onMarkerClick(i, props, marker, e)}
+          place={place}
+        />
+      ));
+      this.setState({pins: pins});
+    }
+
+  }
 
   setProps(mapProps, map){
     let location = this.state.currentLocation;
@@ -66,9 +74,10 @@ export class MapContainer extends React.Component {
     this.props.receiveGoogle(google, service, map, location);
   }
 
-  onMarkerClick(props, marker, e) {
+  onMarkerClick(i, props, marker, e) {
+    this.props.focusItem(i);
     this.setState({
-      selectedPlace: marker,
+      selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
@@ -86,30 +95,29 @@ export class MapContainer extends React.Component {
                     icon={'http://maps.google.com/mapfiles/ms/icons/green-dot.png'}/>;
     }
 
-    let pins;
-    if(this.props.place_state.places){
-      pins = this.props.place_state.places.map((place, i) => (
-        <Marker
-          key={i}
-          title={place.name}
-          position={place.geometry.location}
-          label={place.name[0]}
-          onClick={this.onMarkerClick}
-          place={place}
-        />
-
-      ));
-    }
-    let infoWindow;
-    if(this.state.showingInfoWindow){
-      infoWindow = <InfoWindow
+    // let pins;
+    // if(this.props.place_state.places){
+    //   pins = this.props.place_state.places.map((place, i) => (
+    //     <Marker
+    //       key={i}
+    //       title={place.name}
+    //       position={place.geometry.location}
+    //       label={place.name[0]}
+    //       onClick={this.onMarkerClick}
+    //       place={place}
+    //     />
+    //
+    //   ));
+    // }
+    let  infoWindow = <InfoWindow
                   marker={this.state.activeMarker}
                   visible={this.state.showingInfoWindow}>
                     <div>
-                      <h2>{this.state.selectedPlace.title}</h2>
+                      <p><strong>{this.state.selectedPlace.title}</strong><br/>
+                      {this.state.selectedPlace.place.formatted_address}<br/>
+                      </p>
                     </div>
                 </InfoWindow>;
-    }
       return (
         <Map id='map' google={this.props.google} zoom={14}
         style={{
@@ -122,7 +130,7 @@ export class MapContainer extends React.Component {
         >
           {userLocPin}
           {infoWindow}
-          {pins}
+          {this.state.pins}
 
         </Map>
       );

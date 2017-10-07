@@ -13,9 +13,11 @@ class App extends Component {
       currentLocation: {
           lat: null,
           lng: null
-      }
+      },
+      focus: null
     };
     this.searchPlace = this.searchPlace.bind(this);
+    this.focusItem = this.focusItem.bind(this);
   }
 
   componentWillMount() {
@@ -36,11 +38,17 @@ class App extends Component {
     this.setState({searchTerm: term});
   }
 
+  focusItem(i){
+    this.setState({focus: i})
+  }
+
   render() {
     let list;
 
     if (this.state.searchTerm){
-      list = <List searchTerm={this.state.searchTerm}/>;
+      list = <List
+        focus={this.state.focus}
+        searchTerm={this.state.searchTerm}/>;
     }
     // <List searchTerm={this.state.searchTerm} style={{display: this.state.searchTerm === '' ? "none" : "flex"}}/>
 
@@ -58,12 +66,13 @@ class App extends Component {
             />
         </div>
         <div className='mapListContainer'>
-          <div className='list' style={{width: this.state.searchTerm === '' ? "0%" : "15%",
-                                        }}>
+          <div className='list' style={{width: this.state.searchTerm === '' ? "0%" : "15%"}}>
             {list}
           </div>
           <div className="map">
             <MapContainer style={{height: "75%"}}
+              focusItem={this.focusItem}
+              focus={this.state.focus}
               currentLocation={this.state.currentLocation}
               />
           </div>

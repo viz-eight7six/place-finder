@@ -5,10 +5,16 @@ export const RECEIVE_GOOGLE_MAP = 'RECEIVE_GOOGLE_MAP';
 
 
 export const getList = (google, searchTerm, location, service) => dispatch => {
+  if(searchTerm !== ""){
     APIUtil.fetchList(google, searchTerm, location, service).then( list => {
       return dispatch(receiveList(list));
-    });
-  };
+      });
+  }
+  else{
+    let list = [];
+    return dispatch(receiveList(list));
+  }
+};
 
 export const receiveList = list => ({
   type: RECEIVE_LIST,

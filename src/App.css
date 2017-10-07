@@ -59,8 +59,8 @@ input {
   background-color: #222;
   flex-direction: column;
   justify-content: flex-start;
-  transition: width 2s ease;
-  left: 0;
+  transition: width 1s ease-out;
+  right: 0;
   color:'#FFF';
 }
 
@@ -71,7 +71,6 @@ input {
   overflow-y: auto;
   max-height: 75vh;
   color:'#FFF';
-  transition-delay: 0s;
 }
 
 .list-item {
@@ -82,12 +81,13 @@ input {
   border-left: 0;
   border-right: 0;
   border-top: 0;
-  margin-top: 5px;
-  padding-top: 5px;
+  padding-top: 10px;
   padding-bottom: 10px;
-  margin-bottom: 5px;
   color: '#FFF';
-  transition-delay: 0s;
+}
+
+.list-item:hover{
+  background-color: #444;
 }
 
 .list-item > div {
