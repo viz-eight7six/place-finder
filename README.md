@@ -1,6 +1,12 @@
 #Place Finder
 
+[LIVE](https://viz-eight7six.github.io/place-finder/)
+
 This web app is built with create-react-app npm package. It features a google maps javascript API ran with google maps react package. This project is built with React-Redux structure to maintain clean control of state.
+
+##Quick Start
+
+After pulling this repo, run the app by terminal command "npm start". the local app should be hosted on localhost:3000
 
 ##Features
 
