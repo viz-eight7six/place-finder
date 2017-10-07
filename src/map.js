@@ -91,7 +91,6 @@ export class MapContainer extends React.Component {
       userLocPin = <Marker
                     title={'Current Location'}
                     position={this.props.currentLocation}
-                    onClick={this.onMarkerClick}
                     icon={'http://maps.google.com/mapfiles/ms/icons/green-dot.png'}/>;
     }
 
@@ -122,7 +121,8 @@ export class MapContainer extends React.Component {
         <Map id='map' google={this.props.google} zoom={14}
         style={{
               width: '75%',
-              height: '75%'
+              height: '75%',
+              color: '#FFF'
             }}
         onReady={this.setProps}
         center={this.props.currentLocation}

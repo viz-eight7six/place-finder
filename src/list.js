@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 class List extends React.Component {
 
@@ -10,23 +9,18 @@ class List extends React.Component {
     }
   }
 
-  handleClick(i){
-    // this.props.focusItem(i);
-  }
-
   render(){
     let message = "";
     let placeList;
     if(this.props.places){
       message =  `Results: ${this.props.searchTerm}`;
       placeList = this.props.places.map((place, i) => (
-        <div className="list-item" id={i} key={i}
-          onClick={() => this.handleClick(i)}>
+        <div className="list-item" id={i} key={i}>
           <div>
             <p> <strong>{place.name}</strong><br/><br/>
                 {place.formatted_address}<br/>
                 {place.rating ? place.rating + '★' : 'No Rating'}</p>
-            <a target={"_blank"} href={`https://www.google.com/maps/dir/?api=1&origin&destination=${place.name}&destination_place_id=${place.place_id}`}>
+            <a style={{color: '#30BCED'}}target={"_blank"} href={`https://www.google.com/maps/dir/?api=1&origin&destination=${place.name}&destination_place_id=${place.place_id}`}>
               Directions</a>
           </div>
         </div>
