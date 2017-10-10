@@ -8,6 +8,7 @@ class SearchBar extends Component {
       searchTerm: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   handleSubmit(){
@@ -16,6 +17,13 @@ class SearchBar extends Component {
     let service = this.props.map_data.service;
     this.props.searchPlace(this.state.searchTerm);
     this.props.getList(google, this.state.searchTerm, location, service);
+  }
+
+  handleKeyPress(target) {
+      if(target.charCode === 13){
+        this.handleSubmit();
+      }
+
   }
 
   update(property) {
@@ -32,7 +40,8 @@ class SearchBar extends Component {
           value={this.state.seachTerm}
           autoComplete="on"
           onChange={this.update('searchTerm')}
-        >
+          onKeyPress={this.handleKeyPress}
+          >
         </input>
         <input type="submit"
           id="button"
