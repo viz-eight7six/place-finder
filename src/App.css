@@ -16,8 +16,8 @@ html, body {
   background-color: #222;
   padding-left: 20px;
   color: white;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 5;
+  padding-bottom: 5;
 }
 
 p {
@@ -94,6 +94,10 @@ input {
   color: "#FFF"
 }
 
+.infobox {
+  color: #000;
+}
+
 .map {
   margin:0;
   display: flex;
@@ -107,6 +111,7 @@ input {
 }
 
 #search{
+  padding: 10px;
   border-radius: 3px;
   box-shadow: none;
   -moz-box-shadow: none;
@@ -117,6 +122,7 @@ input {
 }
 
 #button{
+  padding: 10px;
   border-radius: 3px;
   font-size: 18px;
   box-shadow: none;
@@ -131,6 +137,7 @@ input {
   display: flex;
   align-items: center;
   margin: 0;
+  padding: 10px;
 }
 
 .App-title > i:hover {

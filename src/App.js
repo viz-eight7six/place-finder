@@ -32,6 +32,14 @@ class App extends Component {
             });
         });
     }
+    else{
+      this.setState({
+          currentLocation: {
+              lat: 37.7749300,
+              lng:  -122.4194200
+          }
+      });
+    }
   }
 
   searchPlace(term){
@@ -39,7 +47,7 @@ class App extends Component {
   }
 
   focusItem(i){
-    this.setState({focus: i})
+    this.setState({focus: i});
   }
 
   render() {

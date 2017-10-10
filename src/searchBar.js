@@ -28,8 +28,9 @@ class SearchBar extends Component {
   render(){
     return (
       <div id='form'>
-        <input id="search" type='text' placeholder='Search for a place'
+        <input id="search" type='text' placeholder='Search for a place e.g. pizza'
           value={this.state.seachTerm}
+          autoComplete="on"
           onChange={this.update('searchTerm')}
         >
         </input>

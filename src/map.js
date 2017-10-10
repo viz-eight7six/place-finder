@@ -14,10 +14,8 @@ export class MapContainer extends React.Component {
         google: null,
         pins: [],
         selectedPlace: {
-          title:null,
-          place:{
-            formatted_address: null
-          }
+          title: null,
+          formatted_address: null
         },
         activeMarker: null,
         showingInfoWindow: false
@@ -75,12 +73,14 @@ export class MapContainer extends React.Component {
   }
 
   onMarkerClick(i, props, marker, e) {
-    this.props.focusItem(i);
+    // e.preventDefault();
+    // this.props.focusItem(i);
     this.setState({
-      selectedPlace: props,
+      selectedPlace: {title: props.title,
+                      formatted_address: props.place.formatted_address},
       activeMarker: marker,
       showingInfoWindow: true
-    });
+    }, this.props.focusItem(i));
   }
 
   render() {
@@ -93,7 +93,6 @@ export class MapContainer extends React.Component {
                     position={this.props.currentLocation}
                     icon={'http://maps.google.com/mapfiles/ms/icons/green-dot.png'}/>;
     }
-
     // let pins;
     // if(this.props.place_state.places){
     //   pins = this.props.place_state.places.map((place, i) => (
@@ -112,8 +111,8 @@ export class MapContainer extends React.Component {
                   marker={this.state.activeMarker}
                   visible={this.state.showingInfoWindow}>
                     <div>
-                      <p><strong>{this.state.selectedPlace.title}</strong><br/>
-                      {this.state.selectedPlace.place.formatted_address}<br/>
+                      <p className="infobox"><strong>{this.state.selectedPlace.title}</strong><br/>
+                      {this.state.selectedPlace.formatted_address}<br/>
                       </p>
                     </div>
                 </InfoWindow>;
@@ -122,7 +121,9 @@ export class MapContainer extends React.Component {
         style={{
               width: '75%',
               height: '75%',
-              color: '#FFF'
+              color: '#FFF',
+              borderRadius: '5px',
+              boxShadow: '0 0 2px 2px #111',
             }}
         onReady={this.setProps}
         center={this.props.currentLocation}
